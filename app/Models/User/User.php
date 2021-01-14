@@ -6,10 +6,12 @@ use App\Models\Content\Content;
 use App\Models\Subcription\UserSubcription;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use CrudTrait;
+    use CrudTrait, HasRoles;
 
     /*
     |--------------------------------------------------------------------------
@@ -23,7 +25,7 @@ class User extends Model
     // public $timestamps = false;
     // protected $guarded = ['id'];
 
-    protected $fillable = ['id', 'username', 'email', 'password'];
+    protected $fillable = ['username', 'email', 'password'];
 
     // protected $hidden = [];
     // protected $dates = [];
@@ -33,6 +35,13 @@ class User extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    function subscribe($id)
+    {
+        return $this->UserSubcription()->create([
+            'subcription_type_id' => $id
+        ]);
+    }
 
     /*
     |--------------------------------------------------------------------------

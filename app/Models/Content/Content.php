@@ -24,7 +24,6 @@ class Content extends Model
 
     protected $guarded = ['id'];
     protected $fillable = [
-        'id',
         'author_id',
         'category_id',
         'subcription_type_id',

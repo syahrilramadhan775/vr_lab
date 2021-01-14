@@ -22,7 +22,7 @@ class Detail extends Model
 
     protected $guarded = ['id'];
 
-    protected $fillable = ['user_id', 'name', 'no_telp'];
+    protected $fillable = ['name', 'no_telp'];
 
     // protected $hidden = [];
 

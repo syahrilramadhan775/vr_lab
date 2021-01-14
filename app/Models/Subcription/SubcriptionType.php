@@ -22,7 +22,7 @@ class SubcriptionType extends Model
 
     protected $guarded = ['id'];
 
-    protected $fillable = ['id', 'order', 'type'];
+    protected $fillable = ['order', 'type'];
 
     // protected $hidden = [];
     // protected $dates = [];
