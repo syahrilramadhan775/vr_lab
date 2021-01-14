@@ -33,7 +33,7 @@
         <div class="col-lg-8">
     <div class="card padding-10">
         <div class="card-body">
-            <div class="card-title">Subscribe @if($subscribe !== "High") <a href="{{route('')}}">Upgrade Now </a> @endif</div>
+            <div class="card-title">Subscribe @if($subscribe !== "High") <a href="{{url('/subscribe')}}">Upgrade Now </a> @endif</div>
             <h3 class="text-{{$theme}}">{{ $subscribe }}</h3>
         </div>
     </div>
