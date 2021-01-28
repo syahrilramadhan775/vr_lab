@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Subcription;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ErrorException\ErrorSubcriptionResource;
 use App\Http\Resources\Subcription\UserSubcriptionResource;
 use App\Models\Subcription\UserSubcription;
 use Illuminate\Http\Request;
@@ -42,7 +43,13 @@ class UserSubcriptionController extends Controller
             $query->where('id', $id);
         })->first();
 
-        return new UserSubcriptionResource($userSub);
+        //conditioning
+        if (!$userSub)
+            //Mengembalikan Data Dirinya Sendiri Ke Resource.
+            return new ErrorSubcriptionResource($this);
+        else
+            //Mengembalikan Serta Memberikan Nilai User Ke Resource.
+            return new UserSubcriptionResource($userSub);
     }
 
     /**
