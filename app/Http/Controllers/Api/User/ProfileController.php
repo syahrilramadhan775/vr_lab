@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ErrorException\ErrorProfileResource;
 use App\Http\Resources\User\DetailResources;
 use App\Models\User\Detail;
 use App\Models\User\User;
@@ -41,7 +42,13 @@ class ProfileController extends Controller
     {
         $user = User::find($id);
 
-        return new DetailResources($user);
+        //Mencari Dan Memfilter Data User
+        if (!$user)
+            //Mengembalikan Dirinya Sendiri
+            return new ErrorProfileResource($this);
+        else
+            //Mengembalikan Response Data User Dirinya
+            return new DetailResources($user);
     }
 
     /**
