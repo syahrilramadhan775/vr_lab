@@ -7,7 +7,7 @@ use App\Http\Resources\User\ErrorResources;
 use App\Http\Resources\User\LoginResources;
 use App\Models\User\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -19,38 +19,14 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        $username = $request->username;
-        $password = $request->password;
-
-        $pass_hash = Hash::make($password);
-
-        if (Hash::check($password, $pass_hash)) {
-            $user_logins = User::where('username', $username)
-                ->first();
-        }
-
-        if ($user_logins) {
-            return new LoginResources($user_logins);
+        $user = User::where('username', $request->username)->first();
+        $users = Auth::attempt(['username' => $request->username, 'password' => $request->password]);
+        if (Auth::check($users == $user->password)) {
+            if ($users) {
+                return new LoginResources($user);
+            }
         } else {
-            return new ErrorResources($user_logins);
+            return new ErrorResources($user);
         }
     }
-
-    // public function login(Request $request)
-    // {
-    //     $username = $request->username;
-    //     $password = $request->password;
-
-    //     $passwordd = User::where('username', $username)
-    //         ->first()->password;
-
-    //     $user_logins = User::where('username', $username)
-    //         ->first();
-    //     if ($passwordd == $password) {
-
-    //         return new LoginResources($user_logins);
-    //     } else {
-    //         return new ErrorResources($user_logins);
-    //     }
-    // }
 }
